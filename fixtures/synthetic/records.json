@@ -1,0 +1,10 @@
+{
+  "notice": "All records in this file are fictional and intended only for tests or demonstrations.",
+  "profiles": [
+    {"name": "Alex Example", "blood_group": "O+", "allergies": "Synthetic pollen allergy"},
+    {"name": "Sam Example", "blood_group": "A+", "allergies": null}
+  ],
+  "provider": {"name": "Dr Fiction", "specialty": "Family medicine", "hospital": "Example Clinic"},
+  "visit": {"reason": "Fictional knee discomfort", "diagnosis_text": "Synthetic record — no real diagnosis"},
+  "medication": {"generic_name": "Examplemol", "brand_name": "FictionTab", "strength": "10 mg"}
+}

@@ -1,0 +1,54 @@
+# HealthVault live data: never commit any of these.
+/data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.hvault
+*.healthvault-export.zip
+/exports/
+/backups/
+/uploads/
+/logs/
+*.wav
+*.m4a
+*.webm
+*.heic
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node/build
+node_modules/
+dist/
+coverage/
+.vite/
+.vinext/
+.next/
+.wrangler/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+
+# Editors/OS/tool output
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+/outputs/
+/work/

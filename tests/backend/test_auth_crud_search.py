@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from fastapi.testclient import TestClient
 
@@ -64,7 +64,8 @@ def test_manual_medication_requires_name_and_can_record_dose(client: TestClient,
     invalid = client.post("/api/medications", headers=auth, json={"generic_name": None, "brand_name": None, "strength": None, "form": None, "manufacturer": None, "notes": None})
     assert invalid.status_code == 422
     medication = client.post("/api/medications", headers=auth, json={"generic_name": "Examplemol", "brand_name": "FictionTab", "strength": "10 mg", "form": "tablet", "manufacturer": None, "notes": None})
-    prescribed = client.post("/api/prescribed-medications", headers=auth, json={"prescription_id": None, "profile_id": profile_id, "medication_id": medication.json()["id"], "dosage": "1 tablet", "frequency": "once daily", "timing": "08:00", "duration": "5 days", "start_date": "2026-08-10", "end_date": "2026-08-14", "food_relation": "after food", "instructions": "Synthetic instruction", "as_needed": False, "verification_status": "verified", "tracking_status": "active", "schedule": {"times": ["08:00"]}})
+    today = datetime.now(timezone.utc).date()
+    prescribed = client.post("/api/prescribed-medications", headers=auth, json={"prescription_id": None, "profile_id": profile_id, "medication_id": medication.json()["id"], "dosage": "1 tablet", "frequency": "once daily", "timing": "08:00", "duration": "5 days", "start_date": (today - timedelta(days=1)).isoformat(), "end_date": (today + timedelta(days=3)).isoformat(), "food_relation": "after food", "instructions": "Synthetic instruction", "as_needed": False, "verification_status": "verified", "tracking_status": "active", "schedule": {"times": ["08:00"]}})
     assert prescribed.status_code == 201, prescribed.text
     dose = client.post("/api/doses", headers=auth, json={"prescribed_medication_id": prescribed.json()["id"], "scheduled_at": datetime.now(timezone.utc).isoformat(), "status": "taken", "note": None})
     assert dose.status_code == 201
